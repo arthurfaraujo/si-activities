@@ -10,9 +10,9 @@ export default function Activity({
   return (
     <li>
       <div>
-        <span>{name}</span>
-        <span>{subject}</span>
-        <span>{endDate}</span>
+        <span><b>Activity:</b> {name}</span>
+        <span><b>Subject:</b> {subject}</span>
+        <span><b>Deadline:</b> {endDate}</span>
       </div>
     </li>
   )

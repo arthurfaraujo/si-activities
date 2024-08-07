@@ -34,14 +34,32 @@ header {
 }
 
 .container {
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
+}
 
-  ul {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    list-style: none;
+.activity-list {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  gap: 1rem;
+
+  li {
+    width: 65%;
+    padding: 1.5rem;
+    border: 1px solid #2f2f2f;
+    border-radius: 4px;
+    cursor: pointer;
+
+    div {
+      width: 100%;
+      display: flex;
+      flex-flow: column wrap;
+    }
   }
 }
 
