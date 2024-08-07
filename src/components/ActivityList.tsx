@@ -30,7 +30,7 @@ export default function ActivityList() {
   }, [])
 
   return (
-    <ul>
+    <ul className='activity-list'>
       {data.map(activity => (
         <Activity
           key={activity.id}
