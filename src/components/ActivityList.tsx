@@ -17,7 +17,7 @@ export default function ActivityList() {
     async function fetchData() {
       try {
         const response = await fetch(
-          'http://si-activities-api.onrender.com/api/activities'
+          'https://si-activities-api.onrender.com/api/activities'
         )
         const data = await response.json()
         setData(data)
@@ -33,6 +33,7 @@ export default function ActivityList() {
     <ul>
       {data.map(activity => (
         <Activity
+          key={activity.id}
           name={activity.name}
           subject={activity.subject}
           endDate={activity.endDate}
