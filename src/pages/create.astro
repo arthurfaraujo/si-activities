@@ -1,0 +1,8 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ActivityForm from "../components/ActivityForm.tsx"
+---
+
+<Layout title="Criar nova atividade">
+  <ActivityForm client:only="react"/>
+</Layout>

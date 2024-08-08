@@ -18,12 +18,16 @@ const { title } = Astro.props
   </head>
   <body>
     <header>
-      <h3>Atividades SI</h3>
-      <div class="create-new">
-        <span>+</span>
-      </div>
+      <a href="/">
+        <h3>Atividades SI</h3>
+      </a>
+      <a href="/create">
+        <div class="create-new">
+          <span>+</span>
+        </div>
+      </a>
     </header>
-    
+
     <main class="container">
       <slot />
     </main>
