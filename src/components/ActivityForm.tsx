@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { API_URL } from '../const'
 
 interface FormData {
   name: string
@@ -30,7 +31,7 @@ export default function ActivityForm() {
     e.preventDefault()
 
     try {
-      await fetch('https://si-activities-api.onrender.com/api/activities', {
+      await fetch(API_URL + '/activities', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

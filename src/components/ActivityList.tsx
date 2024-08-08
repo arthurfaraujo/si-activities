@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Activity from './Activity.jsx'
+import { API_URL } from '../const.js'
 
 interface ActivityData {
   id: number
@@ -16,9 +17,7 @@ export default function ActivityList() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(
-          'https://si-activities-api.onrender.com/api/activities'
-        )
+        const response = await fetch(API_URL + '/activities')
         const data = await response.json()
         setData(data)
       } catch (e) {
@@ -30,7 +29,7 @@ export default function ActivityList() {
   }, [])
 
   return (
-    <ul className='activity-list'>
+    <ul className="activity-list">
       {data.map(activity => (
         <Activity
           key={activity.id}
