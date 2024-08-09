@@ -26,6 +26,64 @@ export default function ActivityList() {
     }
 
     fetchData()
+    // setData([
+    //   {
+    //     id: 1,
+    //     name: 'Activity 1',
+    //     subject: 'Subject 1',
+    //     endDate: '2022-12-31',
+    //     startDate: '2022-01-01',
+    //     isActive: true
+    //   },
+    //   {
+    //     id: 2,
+    //     name: 'Activity 2',
+    //     subject: 'Subject 2',
+    //     endDate: '2022-12-31',
+    //     startDate: '2022-01-01',
+    //     isActive: false
+    //   },
+    //   {
+    //     id: 4,
+    //     name: 'Activity 2',
+    //     subject: 'Subject 2',
+    //     endDate: '2022-12-31',
+    //     startDate: '2022-01-01',
+    //     isActive: false
+    //   },
+    //   {
+    //     id: 5,
+    //     name: 'Activity 2',
+    //     subject: 'Subject 2',
+    //     endDate: '2022-12-31',
+    //     startDate: '2022-01-01',
+    //     isActive: false
+    //   },
+    //   {
+    //     id: 6,
+    //     name: 'Activity 2',
+    //     subject: 'Subject 2',
+    //     endDate: '2022-12-31',
+    //     startDate: '2022-01-01',
+    //     isActive: false
+    //   },
+    //   {
+    //     id: 7,
+    //     name: 'Activity 2',
+    //     subject: 'Subject 2',
+    //     endDate: '2022-12-31',
+    //     startDate: '2022-01-01',
+    //     isActive: false
+    //   },
+    //   {
+    //     id: 3,
+    //     name: 'Activity 3',
+    //     subject: 'Subject 3',
+    //     endDate: '2022-12-31',
+    //     startDate: '2022-01-01',
+    //     isActive: true
+    //   }
+    // ])
   }, [])
 
   return (
