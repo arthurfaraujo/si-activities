@@ -39,7 +39,7 @@ export default function ActivityForm() {
         body: JSON.stringify(formData)
       })
 
-      window.location.href = '/'
+      window.location.href = API_URL + '/'
     } catch (e) {
       console.error('Error: ', e)
     }
