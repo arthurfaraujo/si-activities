@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { API_URL } from '../const'
+import { API_URL, FRONT_RELATIVE_URL } from '../const'
 
 interface FormData {
   name: string
@@ -39,7 +39,7 @@ export default function ActivityForm() {
         body: JSON.stringify(formData)
       })
 
-      window.location.href = '/'
+      window.location.href = FRONT_RELATIVE_URL
     } catch (e) {
       console.error('Error: ', e)
     }
