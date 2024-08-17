@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Activity from './Activity.jsx'
 import { API_URL } from '../const.js'
+import Loading from './Loading.js'
 
 interface ActivityData {
   id: number
@@ -13,6 +14,7 @@ interface ActivityData {
 
 export default function ActivityList() {
   const [data, setData] = useState<ActivityData[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     async function fetchData() {
@@ -20,82 +22,27 @@ export default function ActivityList() {
         const response = await fetch(API_URL + '/activities')
         const data = await response.json()
         setData(data)
+        setLoading(false)
       } catch (e) {
         console.error('Error: ', e)
       }
     }
 
     fetchData()
-    // setData([
-    //   {
-    //     id: 1,
-    //     name: 'Activity 1',
-    //     subject: 'Subject 1',
-    //     endDate: '2022-12-31',
-    //     startDate: '2022-01-01',
-    //     isActive: true
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'Activity 2',
-    //     subject: 'Subject 2',
-    //     endDate: '2022-12-31',
-    //     startDate: '2022-01-01',
-    //     isActive: false
-    //   },
-    //   {
-    //     id: 4,
-    //     name: 'Activity 2',
-    //     subject: 'Subject 2',
-    //     endDate: '2022-12-31',
-    //     startDate: '2022-01-01',
-    //     isActive: false
-    //   },
-    //   {
-    //     id: 5,
-    //     name: 'Activity 2',
-    //     subject: 'Subject 2',
-    //     endDate: '2022-12-31',
-    //     startDate: '2022-01-01',
-    //     isActive: false
-    //   },
-    //   {
-    //     id: 6,
-    //     name: 'Activity 2',
-    //     subject: 'Subject 2',
-    //     endDate: '2022-12-31',
-    //     startDate: '2022-01-01',
-    //     isActive: false
-    //   },
-    //   {
-    //     id: 7,
-    //     name: 'Activity 2',
-    //     subject: 'Subject 2',
-    //     endDate: '2022-12-31',
-    //     startDate: '2022-01-01',
-    //     isActive: false
-    //   },
-    //   {
-    //     id: 3,
-    //     name: 'Activity 3',
-    //     subject: 'Subject 3',
-    //     endDate: '2022-12-31',
-    //     startDate: '2022-01-01',
-    //     isActive: true
-    //   }
-    // ])
   }, [])
 
   return (
-    <ul className="activity-list">
-      {data.map(activity => (
-        <Activity
-          key={activity.id}
-          name={activity.name}
-          subject={activity.subject}
-          endDate={activity.endDate}
-        />
-      ))}
-    </ul>
+    <>
+      {loading ? <Loading /> : <ul className="activity-list">
+        {data.map(activity => (
+          <Activity
+            key={activity.id}
+            name={activity.name}
+            subject={activity.subject}
+            endDate={activity.endDate}
+          />
+        ))}
+      </ul>}
+    </>
   )
 }
