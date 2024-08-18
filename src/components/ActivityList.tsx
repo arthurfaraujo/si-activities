@@ -2,20 +2,23 @@ import { useEffect, useState } from 'react'
 import Activity from './Activity.jsx'
 import { API_URL } from '../const.js'
 import Loading from './Loading.js'
+import Modal from './Modal.js'
 
-interface ActivityData {
+export interface ActivityData {
   id: number
   name: string
   subject: string
   endDate: string
   startDate: string
   isActive: boolean
+  description: string
 }
 
 export default function ActivityList() {
   const [data, setData] = useState<ActivityData[]>([])
   const [loading, setLoading] = useState<boolean>(true)
-
+  const [selectedActivity, setSelectedActivity] = useState<ActivityData | null>(null)
+  
   useEffect(() => {
     async function fetchData() {
       try {
@@ -31,18 +34,28 @@ export default function ActivityList() {
     fetchData()
   }, [])
 
+  function handleClick(activity: ActivityData) {
+    setSelectedActivity(activity)
+  }
+
+  function closeModal() {
+    setSelectedActivity(null)
+  }
+
   return (
     <>
       {loading ? <Loading /> : <ul className="activity-list">
         {data.map(activity => (
           <Activity
             key={activity.id}
-            name={activity.name}
-            subject={activity.subject}
-            endDate={activity.endDate}
+            activity={activity}
+            onClick={handleClick}
           />
         ))}
       </ul>}
+      {selectedActivity && (
+        <Modal activity={selectedActivity} onClose={closeModal} />
+      )}
     </>
   )
 }

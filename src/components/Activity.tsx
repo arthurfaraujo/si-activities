@@ -1,14 +1,15 @@
+import type { ActivityData } from "./ActivityList"
+
 export default function Activity({
-  name,
-  subject,
-  endDate
+  activity,
+  onClick
 }: Readonly<{
-  name: string
-  subject: string
-  endDate: string
+  activity: ActivityData
+  onClick: (activity: ActivityData) => void
 }>) {
+  const {name, subject, endDate} = activity
   return (
-    <li>
+    <li onClick={() => onClick(activity)}>
       <div>
         <span><b>Activity:</b> {name}</span>
         <span><b>Subject:</b> {subject}</span>
