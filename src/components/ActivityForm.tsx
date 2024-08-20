@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { API_URL, FRONT_RELATIVE_URL } from '../const'
+import { formatDate } from '../utils/dateUtils'
 
 interface FormData {
   name: string
@@ -21,8 +22,10 @@ export default function ActivityForm() {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
 
-    setFormData(formData => ({
-      ...formData,
+    e.target.checkValidity()
+
+    setFormData(data => ({
+      ...data,
       [name]: value
     }))
   }
@@ -36,7 +39,11 @@ export default function ActivityForm() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          endDate: formatDate(formData.endDate),
+          startDate: formatDate(formData.startDate)
+        })
       })
 
       window.location.href = FRONT_RELATIVE_URL
@@ -80,7 +87,7 @@ export default function ActivityForm() {
         <span>Data de criação</span>
         <input
           name="startDate"
-          type="text"
+          type="date"
           value={formData.startDate}
           onChange={handleChange}
           placeholder="dd/MM/aaaa"
@@ -90,7 +97,7 @@ export default function ActivityForm() {
         <span>Data de entrega</span>
         <input
           name="endDate"
-          type="text"
+          type="date"
           value={formData.endDate}
           onChange={handleChange}
           placeholder="dd/MM/aaaa"
