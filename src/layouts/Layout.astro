@@ -20,17 +20,17 @@ const { title } = Astro.props
   </head>
   <body>
     <header>
-      <a href={'/'}>
+      <a href={FRONT_RELATIVE_URL}>
         <h3>Atividades SI</h3>
       </a>
       <nav>
-        <a href={"/rate"}>
+        <a href={FRONT_RELATIVE_URL + "/rate"}>
           <div class="nav-icon rate-btn">
             <iconify-icon class="icon" icon="material-symbols:thumb-up-outline"></iconify-icon>
             <span>Avalie!</span>
           </div>
         </a>
-        <a href={"/create"}>
+        <a href={FRONT_RELATIVE_URL + "/create"}>
           <div class="nav-icon">
             <iconify-icon icon="charm:plus"></iconify-icon>
           </div>
