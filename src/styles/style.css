@@ -13,6 +13,7 @@ html {
 
 body {
   width: 100%;
+  overflow-x: hidden;
 }
 
 header {
@@ -22,14 +23,56 @@ header {
   padding: 1.5rem;
   height: 3.5rem;
 
-  .create-new {
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .nav-icon {
     width: 2rem;
     height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid #434343;
     border-radius: 5px;
-    text-align: center;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     cursor: pointer;
+    padding: 5px;
+  }
+}
+
+.rate-btn {
+  transition: 0.35s;
+  overflow: hidden;
+
+  
+  span {
+    display: none;
+    transform: translate(-50%, -50%);
+    font-size: 1.1rem;
+  }
+
+  .icon {
+    transform: none;
+  }
+}
+
+.rate-btn:hover {
+  width: 80px;
+  display: flex;
+  justify-content: space-around;
+
+  span {
+    display: block;
+    transform: none;
+    transition: 0.3s;
+  }
+
+  .icon {
+    transform: translate(-200%, 0);
+    display: none;
+    transition: transform 10s;
   }
 }
 
