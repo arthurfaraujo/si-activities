@@ -11,9 +11,9 @@ export default function Activity({
   return (
     <li onClick={() => onClick(activity)}>
       <div>
-        <span><b>Activity:</b> {name}</span>
-        <span><b>Subject:</b> {subject}</span>
-        {isActive ? <span><b>Deadline:</b> {endDate}</span> : <span><b>Deadline ended</b></span>}
+        <span><b>Atividade:</b> {name}</span>
+        <span><b>Matéria:</b> {subject}</span>
+        {isActive ? <span><b>Data de entrega:</b> {endDate}</span> : <span><b>Prazo de entrega encerrado!</b></span>}
       </div>
     </li>
   )
