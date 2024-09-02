@@ -15,6 +15,9 @@ html {
 
 body {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
@@ -82,14 +85,16 @@ header {
   margin-top: 1rem;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
+  flex: 1;
 }
 
 .activity-list {
   width: 100%;
   display: flex;
-  flex-flow: column;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   list-style: none;
   gap: 1rem;
   padding: 1rem;
@@ -148,8 +153,8 @@ a {
 }
 
 .loader {
-  margin-top: 8rem;
   width: 60px;
+  height: fit-content;
   aspect-ratio: 4;
   background: radial-gradient(circle closest-side,#fff 90%,#fff0) 0/calc(100%/3) 100% space;
   clip-path: inset(0 100% 0 0);
@@ -206,9 +211,16 @@ a {
   font-weight: bolder;
 }
 
+footer {
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
 
-@media (min-width: 500px) {
+@media (max-width: 500px) {
   .activity-list {
     flex-flow: row wrap;
   }
