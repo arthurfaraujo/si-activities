@@ -16,12 +16,14 @@ html {
 body {
   width: 100%;
   display: flex;
+  align-items: center;
   flex-direction: column;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
 header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -84,8 +86,9 @@ header {
 .container {
   margin-top: 1rem;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   flex: 1;
 }
 
