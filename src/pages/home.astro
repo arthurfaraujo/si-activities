@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ActivityList from '../components/ActivityList.tsx';
+---
+
+<Layout title="SI Activities">
+  <ActivityList client:only="react"/>
+</Layout>

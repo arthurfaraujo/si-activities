@@ -1,8 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ActivityList from '../components/ActivityList.tsx';
 ---
 
 <Layout title="SI Activities">
-  <ActivityList client:only="react"/>
+  <div class="flex-grow flex gap-2 p-4 flex-wrap content-center justify-center text-center">
+    <p class="min-w-fit h-fit">
+      Todas as suas atividades em um só lugar.
+    </p>
+    <p class="min-w-fit h-fit">
+      Fácil de visualizar.
+    </p>
+    <p class="min-w-fit h-fit">
+      Fácil de lembrar.
+    </p>
+    <p class="min-w-fit h-fit">
+      Bonito e eficiente.
+    </p>
+  </div>
 </Layout>

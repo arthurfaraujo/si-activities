@@ -44,7 +44,7 @@ export default function ActivityList() {
 
   return (
     <>
-      {loading ? <Loading /> : <ul className="activity-list">
+      {loading ? <Loading /> : <ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 flex-grow">
         {data.map(activity => (
           <Activity
             key={activity.id}
