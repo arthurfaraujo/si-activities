@@ -85,10 +85,6 @@ header {
 
 .container {
   margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   flex: 1;
 }
 
@@ -97,9 +93,11 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   justify-content: center;
+  align-content: flex-start;
   list-style: none;
   gap: 1rem;
   padding: 1rem;
+  flex: 1;
 
   li {
     width: 100%;
