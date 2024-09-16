@@ -53,8 +53,8 @@ export default function ActivityForm() {
   }
 
   return (
-    <form className='activity-form' onSubmit={handleSubmit}>
-      <label>
+    <form className='max-w-[400px] w-4/6 flex flex-wrap gap-4' onSubmit={handleSubmit}>
+      <label className='label-style'>
         <span>Nome</span>
         <input
           name="name"
@@ -62,9 +62,10 @@ export default function ActivityForm() {
           value={formData.name}
           onChange={handleChange}
           required
+          className='input-style'
         />
       </label>
-      <label>
+      <label className='label-style'>
         <span>Matéria</span>
         <input
           name="subject"
@@ -72,18 +73,20 @@ export default function ActivityForm() {
           value={formData.subject}
           onChange={handleChange}
           required
+          className='input-style'
         />
       </label>
-      <label>
+      <label className='label-style'>
         <span>Descrição</span>
         <input
           name="description"
           type="text"
           value={formData.description}
           onChange={handleChange}
+          className='input-style'
         />
       </label>
-      <label>
+      <label className='label-style'>
         <span>Data de criação</span>
         <input
           name="startDate"
@@ -91,9 +94,10 @@ export default function ActivityForm() {
           value={formData.startDate}
           onChange={handleChange}
           placeholder="dd/MM/aaaa"
+          className='input-style'
         />
       </label>
-      <label>
+      <label className='label-style'>
         <span>Data de entrega</span>
         <input
           name="endDate"
@@ -101,10 +105,11 @@ export default function ActivityForm() {
           value={formData.endDate}
           onChange={handleChange}
           placeholder="dd/MM/aaaa"
+          className='input-style'
         />
       </label>
 
-      <button type="submit">Criar atividade</button>
+      <button type="submit" className='w-full text-lg p-2 border border-solid border-[#3a3a3a] rounded text-white bg-inherit cursor-pointer'>Criar atividade</button>
     </form>
   )
 }

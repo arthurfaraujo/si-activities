@@ -88,35 +88,12 @@ header {
   flex: 1;
 }
 
-.activity-form {
-  max-width: 400px;
-  width: 65%;
-  display: flex;
-  justify-content: center;
-  flex-flow: row wrap;
-  gap: 1rem;
+.label-style {
+  @apply w-full flex flex-col
+}
 
-  label {
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-  }
-
-  input {
-    padding: 0.5rem;
-    border: 1px solid #2f2f2f;
-    border-radius: 4px;
-  }
-
-  button {
-    width: fit-content;
-    padding: 0.5rem;
-    border: 1px solid #3a3a3a;
-    color: #fff;
-    background-color: inherit;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+.input-style {
+  @apply p-2 border border-solid rounded border-[#3a3a3a]
 }
 
 a {
