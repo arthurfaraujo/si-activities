@@ -7,93 +7,22 @@
 }
 
 html {
-  font-family: "Montserrat", system-ui, sans-serif;
+  font-family: 'Montserrat', system-ui, sans-serif;
   background: #13151a;
   background-size: 224px;
   color: #fffefe;
 }
 
-body {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem;
-  height: 3.5rem;
-
-  nav {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .nav-icon {
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #434343;
-    border-radius: 5px;
-    font-size: 1.3rem;
-    cursor: pointer;
-    padding: 5px;
-  }
-}
-
-.rate-btn {
-  transition: 0.35s;
-  overflow: hidden;
-
-  
-  span {
-    display: none;
-    transform: translate(-50%, -50%);
-    font-size: 1.1rem;
-  }
-
-  .icon {
-    transform: none;
-  }
-}
-
-.rate-btn:hover {
-  width: 80px;
-  display: flex;
-  justify-content: space-around;
-
-  span {
-    display: block;
-    transform: none;
-    transition: 0.3s;
-  }
-
-  .icon {
-    transform: translate(-200%, 0);
-    display: none;
-    transition: transform 10s;
-  }
-}
-
-.container {
-  margin-top: 1rem;
-  flex: 1;
+.nav-icon {
+  @apply w-8 h-8 flex justify-center items-center border border-solid border-[#434343] rounded text-xl;
 }
 
 .label-style {
-  @apply w-full flex flex-col
+  @apply w-full flex flex-col;
 }
 
 .input-style {
-  @apply p-2 border border-solid rounded border-[#3a3a3a]
+  @apply p-2 border border-solid rounded border-[#3a3a3a];
 }
 
 a {
@@ -105,19 +34,17 @@ a {
   width: 60px;
   height: fit-content;
   aspect-ratio: 4;
-  background: radial-gradient(circle closest-side,#fff 90%,#fff0) 0/calc(100%/3) 100% space;
+  background: radial-gradient(circle closest-side, #fff 90%, #fff0) 0 /
+    calc(100% / 3) 100% space;
   clip-path: inset(0 100% 0 0);
   animation: l1 1s steps(4) infinite;
 }
 
-footer {
-  height: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@keyframes l1 {
+  to {
+    clip-path: inset(0 -34% 0 0);
+  }
 }
-
-@keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
 
 @media (max-width: 500px) {
   .activity-list {
