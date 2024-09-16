@@ -88,18 +88,6 @@ header {
   flex: 1;
 }
 
-.activity-list {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 250px);
-  justify-content: center;
-  align-content: flex-start;
-  list-style: none;
-  gap: 1rem;
-  padding: 1rem;
-  flex: 1;
-}
-
 .activity-form {
   max-width: 400px;
   width: 65%;
