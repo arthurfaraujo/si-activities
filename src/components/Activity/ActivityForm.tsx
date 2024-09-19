@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { API_URL, FRONT_RELATIVE_URL } from '../const'
-import { formatDate } from '../utils/dateUtils'
+import { API_URL, FRONT_RELATIVE_URL } from '../../const'
+import { formatDate } from '../../utils/dateUtils'
 
 interface FormData {
   name: string

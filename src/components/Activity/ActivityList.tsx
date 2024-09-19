@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import Activity from './Activity.jsx'
-import { API_URL } from '../const.js'
-import Loading from './Loading.js'
-import Modal from './Modal.js'
+import { API_URL } from '../../const.js'
+import Loading from '../Others/Loading.jsx'
+import Modal from '../Others/Modal.jsx'
 
 export interface ActivityData {
   id: number
@@ -25,15 +25,16 @@ export default function ActivityList() {
   const [subjectsData, setSubjectsData] = useState<SubjectData[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [selectedActivity, setSelectedActivity] = useState<ActivityData | null>(null)
-  
+
   useEffect(() => {
     async function fetchData() {
       try {
         const activities = await (await fetch(API_URL + '/activities')).json()
         setActivitiesData(activities)
 
-        const subjects = await (await fetch(API_URL + '/subjects')).json() 
+        const subjects = await (await fetch(API_URL + '/subjects')).json()
         setSubjectsData(subjects)
+
         setLoading(false)
       } catch (e) {
         console.error('Error: ', e)
@@ -57,8 +58,8 @@ export default function ActivityList() {
         {activitiesData.map(activity => (
           <Activity
             key={activity.id}
-            activity={{...activity, subject: (subjectsData.find(subject => subject.id == activity.subject_id))?.name}}
-            
+            activity={{ ...activity, subject: (subjectsData.find(subject => subject.id == activity.subject_id))?.name }}
+
             onClick={handleClick}
           />
         ))}
