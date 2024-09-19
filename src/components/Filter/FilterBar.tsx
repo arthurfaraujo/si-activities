@@ -7,7 +7,7 @@ export default function FilterBar() {
   const loading = useStore(isLoading)
 
   return loading ? null : (
-    <div className='w-full flex flex-wrap gap-4 justify-end pr-8'>
+    <div className='w-full flex gap-2 justify-end px-4'>
       <FilterSubject />
       <FilterActive />
     </div>
