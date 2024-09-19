@@ -22,7 +22,11 @@ html {
 }
 
 .input-style {
-  @apply p-2 border border-solid rounded border-[#3a3a3a];
+  @apply p-2 border border-solid rounded border-[#3a3a3a] text-black font-semibold;
+}
+
+.disabled-button {
+  @apply bg-[#3a3a3a] cursor-not-allowed;
 }
 
 a {

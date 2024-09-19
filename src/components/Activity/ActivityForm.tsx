@@ -18,6 +18,7 @@ export default function ActivityForm() {
     startDate: '',
     endDate: ''
   })
+  const [isSending, setIsSending] = useState<boolean>(false)
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
@@ -34,6 +35,7 @@ export default function ActivityForm() {
     e.preventDefault()
 
     try {
+      setIsSending(is => !is)
       await fetch(API_URL + '/activities', {
         method: 'POST',
         headers: {
@@ -46,6 +48,7 @@ export default function ActivityForm() {
         })
       })
 
+      setIsSending(is => !is)
       window.location.href = FRONT_RELATIVE_URL
     } catch (e) {
       console.error('Error: ', e)
@@ -109,7 +112,7 @@ export default function ActivityForm() {
         />
       </label>
 
-      <button type="submit" className='w-full text-lg p-2 border border-solid border-[#3a3a3a] rounded text-white bg-inherit cursor-pointer'>Criar atividade</button>
+      <button type="submit" className={'w-full text-lg p-2 border border-solid border-[#3a3a3a] rounded text-white bg-inherit cursor-pointer' + (isSending ? ' disabled-button' : "")} disabled={isSending}>Criar atividade</button>
     </form>
   )
 }
