@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react'
-import Activity from './Activity.jsx'
-import { API_URL } from '../../const.js'
-import Modal from '../Others/Modal.jsx'
-import { isLoading } from '../../stores/listStore.js'
+import Activity from './Activity.tsx'
+import { API_URL } from '@/const.ts'
+import Modal from '../Others/Modal.tsx'
+import Loading from '../Others/Loading.tsx'
+import { isLoading, subjects } from '@/stores/listStore.ts'
+import { filters } from '@/stores/filtersStore.ts'
+import { useStore } from '@nanostores/react'
+import { filterActivities } from '@/utils/filterUtil.ts'
 
 export interface ActivityData {
   id: number
@@ -22,24 +26,35 @@ export interface SubjectData {
 
 export default function ActivityList() {
   const [activitiesData, setActivitiesData] = useState<ActivityData[]>([])
-  const [subjectsData, setSubjectsData] = useState<SubjectData[]>([])
   const [selectedActivity, setSelectedActivity] = useState<ActivityData | null>(null)
+  const $isLoading = useStore(isLoading)
+  const $filters = useStore(filters)
+  const $subjects = useStore(subjects)
 
   useEffect(() => {
     async function fetchData() {
       try {
+        subjects.set(await (await fetch(API_URL + '/subjects')).json())
+        
         const activities = await (await fetch(API_URL + '/activities')).json()
-        setActivitiesData(activities)
 
-        const subjects = await (await fetch(API_URL + '/subjects')).json()
-        setSubjectsData(subjects)
+        setActivitiesData(activities.map((act: ActivityData) => (
+          {
+            ...act,
+            subject: $subjects.find(
+              subject => subject.id == act.subject_id
+            )?.name
+          }
+        )))
+
+        console.log(activitiesData, $subjects)
 
         isLoading.set(false)
       } catch (e) {
         console.error('Error: ', e)
       }
     }
-
+    
     fetchData()
   }, [])
 
@@ -53,16 +68,19 @@ export default function ActivityList() {
 
   return (
     <>
-      {<ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 flex-grow">
-        {activitiesData.map(activity => (
-          <Activity
-            key={activity.id}
-            activity={{ ...activity, subject: (subjectsData.find(subject => subject.id == activity.subject_id))?.name }}
-
-            onClick={handleClick}
-          />
-        ))}
-      </ul>}
+      {$isLoading ? (
+        <Loading />
+      ) : (
+        <ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 flex-grow">
+            {filterActivities($filters, activitiesData).map(activity => (
+            <Activity
+              key={activity.id}
+              activity={activity}
+              onClick={handleClick}
+            />
+          ))}
+        </ul>
+      )}
       {selectedActivity && (
         <Modal activity={selectedActivity} onClose={closeModal} />
       )}

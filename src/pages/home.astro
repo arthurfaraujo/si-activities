@@ -1,8 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import LoadingContent from '../components/Others/LoadingContent'
+import ActivityList from '@/components/Activity/ActivityList'
+import Layout from '@/layouts/Layout.astro'
+import FilterBar from '@/components/Filter/FilterBar'
 ---
 
 <Layout title="SI Activities">
-  <LoadingContent />
+  <FilterBar client:only="react" />
+  <ActivityList client:only="react" />
 </Layout>
