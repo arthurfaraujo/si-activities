@@ -20,7 +20,7 @@ export default function FilterSubject() {
       </SelectTrigger>
       <SelectContent className='dark'>
         <SelectItem value='any'>Todas</SelectItem>
-        {$subjects.map((subj) => (<SelectItem value={subj.name}>{subj.name}</SelectItem>))}
+        {$subjects.map((subj) => (<SelectItem key={subj.id} value={subj.name}>{subj.name}</SelectItem>))}
       </SelectContent>
     </Select>
   )

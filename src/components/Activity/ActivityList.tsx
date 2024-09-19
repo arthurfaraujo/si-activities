@@ -41,13 +41,11 @@ export default function ActivityList() {
         setActivitiesData(activities.map((act: ActivityData) => (
           {
             ...act,
-            subject: $subjects.find(
+            subject: subjects.get().find(
               subject => subject.id == act.subject_id
             )?.name
           }
         )))
-
-        console.log(activitiesData, $subjects)
 
         isLoading.set(false)
       } catch (e) {
