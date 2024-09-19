@@ -1,8 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import ActivityList from '../components/Activity/ActivityList.tsx'
+import LoadingContent from '../components/Others/LoadingContent'
 ---
 
 <Layout title="SI Activities">
-  <ActivityList client:only="react" />
+  <LoadingContent />
 </Layout>

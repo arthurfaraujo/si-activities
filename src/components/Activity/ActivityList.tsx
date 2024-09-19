@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import Activity from './Activity.jsx'
 import { API_URL } from '../../const.js'
-import Loading from '../Others/Loading.jsx'
 import Modal from '../Others/Modal.jsx'
+import { isLoading } from '../../stores/listStore.js'
 
 export interface ActivityData {
   id: number
@@ -23,7 +23,6 @@ export interface SubjectData {
 export default function ActivityList() {
   const [activitiesData, setActivitiesData] = useState<ActivityData[]>([])
   const [subjectsData, setSubjectsData] = useState<SubjectData[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
   const [selectedActivity, setSelectedActivity] = useState<ActivityData | null>(null)
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export default function ActivityList() {
         const subjects = await (await fetch(API_URL + '/subjects')).json()
         setSubjectsData(subjects)
 
-        setLoading(false)
+        isLoading.set(false)
       } catch (e) {
         console.error('Error: ', e)
       }
@@ -54,7 +53,7 @@ export default function ActivityList() {
 
   return (
     <>
-      {loading ? <Loading /> : <ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 flex-grow">
+      {<ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 flex-grow">
         {activitiesData.map(activity => (
           <Activity
             key={activity.id}
