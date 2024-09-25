@@ -29,13 +29,10 @@ export default function ActivityList() {
   const [selectedActivity, setSelectedActivity] = useState<ActivityData | null>(null)
   const $isLoading = useStore(isLoading)
   const $filters = useStore(filters)
-  const $subjects = useStore(subjects)
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        subjects.set(await (await fetch(API_URL + '/subjects')).json())
-        
+      try {        
         const activities = await (await fetch(API_URL + '/activities')).json()
 
         setActivitiesData(activities.map((act: ActivityData) => (

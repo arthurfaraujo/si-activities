@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { API_URL, FRONT_RELATIVE_URL } from '../../const'
 import { formatDate } from '../../utils/dateUtils'
+import { subjects } from '@/stores/listStore.ts'
 
 interface FormData {
   name: string
@@ -70,14 +71,12 @@ export default function ActivityForm() {
       </label>
       <label className='label-style'>
         <span>Matéria</span>
-        <input
-          name="subject"
-          type="text"
-          value={formData.subject}
-          onChange={handleChange}
-          required
-          className='input-style'
-        />
+        <select className='input-style'>
+          <option value="-1">Nenhuma</option>
+          {subjects.get().map(subject => (
+            <option value={subject.id}>{subject.name}</option>
+          ))}
+        </select>
       </label>
       <label className='label-style'>
         <span>Descrição</span>
