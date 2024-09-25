@@ -15,7 +15,7 @@ export default function FilterSubject() {
 
   return (
     <Select onValueChange={(value: string) => filters.set({...$filters, subject: value})}>
-      <SelectTrigger className="min-w-fit max-w-40 dark focus:ring-1 gap-1">
+      <SelectTrigger className="w-fit max-w-[45%] dark focus:ring-1 gap-1">
         <SelectValue placeholder="Matérias" />
       </SelectTrigger>
       <SelectContent className='dark'>
