@@ -33,6 +33,7 @@ export default function ActivityList() {
   useEffect(() => {
     async function fetchData() {
       try {        
+        subjects.set(await (await fetch(API_URL + '/subjects')).json())
         const activities = await (await fetch(API_URL + '/activities')).json()
 
         setActivitiesData(activities.map((act: ActivityData) => (

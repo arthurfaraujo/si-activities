@@ -1,7 +1,8 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { API_URL, FRONT_RELATIVE_URL } from '../../const'
 import { formatDate } from '../../utils/dateUtils'
 import { subjects } from '@/stores/listStore.ts'
+import { useStore } from '@nanostores/react'
 
 interface FormData {
   name: string
@@ -12,6 +13,7 @@ interface FormData {
 }
 
 export default function ActivityForm() {
+  const $subjects = useStore(subjects)
   const [formData, setFormData] = useState<FormData>({
     name: '',
     subject: '',
@@ -20,6 +22,17 @@ export default function ActivityForm() {
     endDate: ''
   })
   const [isSending, setIsSending] = useState<boolean>(false)
+
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      try {
+        subjects.set(await (await fetch(API_URL + '/subjects')).json())
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    fetchSubjects()
+  }, [])
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
@@ -73,7 +86,7 @@ export default function ActivityForm() {
         <span>Matéria</span>
         <select className='input-style'>
           <option value="-1">Nenhuma</option>
-          {subjects.get().map(subject => (
+          {$subjects.map(subject => (
             <option value={subject.id}>{subject.name}</option>
           ))}
         </select>
