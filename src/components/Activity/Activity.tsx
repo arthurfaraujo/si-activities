@@ -9,7 +9,7 @@ export default function Activity({
 }>) {
   const {name, subject, endDate, isActive} = activity
   return (
-    <li onClick={() => onClick(activity)} className="w-full flex flex-col justify-center p-6 border border-solid border-[#2f2f2f] rounded cursor-pointer">
+    <li onClick={() => onClick(activity)} className="w-full flex flex-col justify-center p-6 default-border cursor-pointer transition duration-500 hover:bg-[#1f1f23]">
       <div className="w-full flex flex-col flex-wrap">
         <span><b>Atividade:</b> {name}</span>
         <span><b>Matéria:</b> {subject}</span>
