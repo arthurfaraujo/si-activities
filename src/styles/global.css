@@ -17,8 +17,12 @@ html {
   color: #fffefe;
 }
 
+.default-border {
+  @apply border border-solid border-[#4f4f4f] rounded;
+}
+
 .nav-icon {
-  @apply w-8 h-8 flex justify-center items-center border border-solid border-[#434343] rounded text-xl;
+  @apply w-8 h-8 flex justify-center items-center text-xl;
 }
 
 .label-style {
@@ -40,18 +44,20 @@ a {
 
 .loader {
   width: 60px;
-  height: fit-content;
-  aspect-ratio: 4;
-  background: radial-gradient(circle closest-side, #fff 90%, #fff0) 0 /
-    calc(100% / 3) 100% space;
-  clip-path: inset(0 100% 0 0);
-  animation: l1 1s steps(4) infinite;
+  aspect-ratio: 2;
+  --_g: no-repeat radial-gradient(circle closest-side,#fff 90%,#fff0);
+  background: 
+    var(--_g) 0%   50%,
+    var(--_g) 50%  50%,
+    var(--_g) 100% 50%;
+  background-size: calc(100%/3) 50%;
+  animation: l3 1s infinite linear;
 }
-
-@keyframes l1 {
-  to {
-    clip-path: inset(0 -34% 0 0);
-  }
+@keyframes l3 {
+    20%{background-position:0%   0%, 50%  50%,100%  50%}
+    40%{background-position:0% 100%, 50%   0%,100%  50%}
+    60%{background-position:0%  50%, 50% 100%,100%   0%}
+    80%{background-position:0%  50%, 50%  50%,100% 100%}
 }
 
 @media (max-width: 500px) {
