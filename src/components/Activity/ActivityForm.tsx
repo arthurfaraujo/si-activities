@@ -1,7 +1,7 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { API_URL, FRONT_RELATIVE_URL } from '../../const'
 import { formatDate } from '../../utils/dateUtils'
-import { subjects } from '@/stores/listStore.ts'
+import { subjects } from '@/stores/listStore'
 import { useStore } from '@nanostores/react'
 
 interface FormData {
@@ -63,7 +63,7 @@ export default function ActivityForm() {
       })
 
       setIsSending(is => !is)
-      // window.location.href = FRONT_RELATIVE_URL + "/home"
+      window.location.href = FRONT_RELATIVE_URL + "/home"
     } catch (e) {
       console.error('Error: ', e)
     }
