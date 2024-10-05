@@ -54,8 +54,8 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
-      - name: Remove package-lock.json
-        run: rm ${{ steps.detect-package-manager.outputs.lockfile }}
+      - name: Install
+        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Setup Node
         uses: actions/setup-node@v4.0.4
         with:
