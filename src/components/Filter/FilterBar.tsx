@@ -1,7 +1,7 @@
-import FilterActive from './FilterActive.tsx'
-import { isLoading } from '@/stores/listStore.ts'
+import FilterActive from './FilterActive'
+import { isLoading } from '@/stores/listStore'
 import { useStore } from '@nanostores/react'
-import FilterSubject from './FilterSubject.tsx'
+import FilterSubject from './FilterSubject'
 
 export default function FilterBar() {
   const loading = useStore(isLoading)
