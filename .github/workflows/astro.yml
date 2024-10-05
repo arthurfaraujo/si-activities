@@ -56,7 +56,7 @@ jobs:
           fi
       - name: Fix
         run: |
-          rm ${{ steps.detect-package-manager.outputs.lockfile }} \
+          rm ${{ steps.detect-package-manager.outputs.lockfile }} && \
           ${{ steps.detect-package-manager.outputs.manager }} i
       - name: Setup Node
         uses: actions/setup-node@v4.0.4
