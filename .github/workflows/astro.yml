@@ -54,26 +54,15 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
-      - name: Fix
-        run: |
-          rm ${{ steps.detect-package-manager.outputs.lockfile }} && \
-          ${{ steps.detect-package-manager.outputs.manager }} i
       - name: Setup Node
-        uses: actions/setup-node@v4.0.4
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
           cache-dependency-path: ${{ env.BUILD_PATH }}/${{ steps.detect-package-manager.outputs.lockfile }}
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node_modules-
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5.0.0
+        uses: actions/configure-pages@v5
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
