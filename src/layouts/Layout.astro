@@ -2,12 +2,14 @@
 import '@/styles/global.css'
 import { FRONT_RELATIVE_URL } from '../const'
 import DropdownMenu from '@/components/Menu/DropdwonMenu'
+import ListMenu from '@/components/Menu/ListMenu'
 interface Props {
   title: string
   icon?: string
 }
 
 const { title, icon } = Astro.props
+const url = Astro.url.origin
 ---
 
 <!doctype html>
@@ -23,10 +25,11 @@ const { title, icon } = Astro.props
   </head>
   <body class="w-full flex items-center flex-col min-h-screen overflow-x-hidden bg-zinc-900 text-inherit">
     <header class="w-full flex justify-between items-center p-6 h-14">
-      <a href={FRONT_RELATIVE_URL}>
+      <a href={url}>
         <h3 class="text-lg">Atividades SI</h3>
       </a>
-      <DropdownMenu client:only="react" />
+      <DropdownMenu client:only="react" url={url}/>
+      <ListMenu client:only="react" url={url}/>
     </header>
 
     <main class="w-full mt-4 flex-grow flex justify-center items-center flex-col">
