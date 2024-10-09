@@ -1,6 +1,5 @@
 ---
 import '@/styles/global.css'
-import { FRONT_RELATIVE_URL } from '../const'
 import DropdownMenu from '@/components/Menu/DropdwonMenu'
 import ListMenu from '@/components/Menu/ListMenu'
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
 }
 
 const { title, icon } = Astro.props
-const url = Astro.url.origin
+const url = Astro.url.origin.includes("localhost") ? Astro.url.origin : Astro.url.origin + "/si-activities"
 ---
 
 <!doctype html>

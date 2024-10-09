@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const url = Astro.url.origin
+const url = Astro.url.origin.includes("localhost") ? Astro.url.origin : Astro.url.origin + "/si-activities"
 ---
 
 <Layout title="SI Activities">
