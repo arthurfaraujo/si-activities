@@ -82,6 +82,7 @@ export default function ActivityForm() {
           value={formData.name}
           onChange={handleChange}
           required
+          autoComplete='off'
           className="input-style"
         />
       </label>
@@ -101,9 +102,9 @@ export default function ActivityForm() {
             }))
           }}
         >
-          <option value="-1">Nenhuma</option>
+          <option value="-1" className='bg-zinc-900'>Nenhuma</option>
           {$subjects.map(subject => (
-            <option key={subject.id} value={subject.id}>
+            <option key={subject.id} value={subject.id} className='bg-zinc-900'>
               {subject.name}
             </option>
           ))}
@@ -116,6 +117,7 @@ export default function ActivityForm() {
           type="text"
           value={formData.description}
           onChange={handleChange}
+          autoComplete='off'
           className="input-style"
         />
       </label>
@@ -126,18 +128,18 @@ export default function ActivityForm() {
           type="date"
           value={formData.startDate}
           onChange={handleChange}
-          placeholder="dd/MM/aaaa"
+          autoComplete='off'
           className="input-style"
         />
       </label>
-      <label className="label-style">
+      <label className="label-style date-style">
         <span>Data de entrega</span>
         <input
           name="endDate"
           type="date"
           value={formData.endDate}
           onChange={handleChange}
-          placeholder="dd/MM/aaaa"
+          autoComplete='off'
           className="input-style"
         />
       </label>
@@ -145,7 +147,7 @@ export default function ActivityForm() {
       <button
         type="submit"
         className={
-          'w-full text-lg p-2 border border-solid border-[#3a3a3a] rounded text-white bg-inherit cursor-pointer' +
+          'w-full text-lg p-2 border border-solid border-[#3a3a3a] rounded text-white bg-inherit cursor-pointer hover:bg-zinc-800 duration-200' +
           (isSending ? ' disabled-button' : '')
         }
         disabled={isSending}
