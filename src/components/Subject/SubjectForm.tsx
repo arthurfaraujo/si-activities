@@ -54,6 +54,7 @@ export default function ActivityForm() {
           value={formData.name}
           onChange={handleChange}
           required
+          autoComplete='off'
           className="input-style"
         />
       </label>
@@ -61,7 +62,7 @@ export default function ActivityForm() {
       <button
         type="submit"
         className={
-          'w-full text-lg p-2 border border-solid border-[#3a3a3a] rounded text-white bg-inherit cursor-pointer' +
+          'w-full text-lg p-2 border border-solid border-[#3a3a3a] rounded text-white bg-inherit cursor-pointer hover:bg-zinc-800 duration-200' +
           (isSending ? ' disabled-button' : '')
         }
         disabled={isSending}
