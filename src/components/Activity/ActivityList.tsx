@@ -11,7 +11,7 @@ import { filterActivities } from '@/utils/filterUtil.ts'
 export interface ActivityData {
   id: number
   name: string
-  subject_id: number
+  subjectId: number
   subject?: string
   endDate: string
   startDate: string
@@ -40,7 +40,7 @@ export default function ActivityList() {
           {
             ...act,
             subject: subjects.get().find(
-              subject => subject.id == act.subject_id
+              subject => subject.id == act.subjectId
             )?.name
           }
         )))
@@ -53,7 +53,7 @@ export default function ActivityList() {
     
     fetchData()
   }, [])
-
+  
   function handleClick(activity: ActivityData) {
     setSelectedActivity(activity)
   }

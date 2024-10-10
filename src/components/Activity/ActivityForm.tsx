@@ -10,6 +10,7 @@ interface FormData {
   description: string
   startDate: string
   endDate: string
+  subjectId: number
 }
 
 export default function ActivityForm() {
@@ -19,7 +20,8 @@ export default function ActivityForm() {
     subject: '',
     description: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    subjectId: -1
   })
   const [isSending, setIsSending] = useState<boolean>(false)
 
@@ -90,7 +92,7 @@ export default function ActivityForm() {
         <span>Matéria</span>
         <select
           className="input-style"
-          name="subject_id"
+          name="subjectId"
           onChange={e => {
             const { name, value } = e.target
 
