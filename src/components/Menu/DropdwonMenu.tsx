@@ -12,7 +12,7 @@ export default function DropdwonMenu({url}: Readonly<{url: string}>) {
   return (
     <div className='lg:hidden'>
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <Button className="hover:bg-zinc-800">Menu</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="border border-zinc-600 w-56 bg-zinc-900 text-inherit mt-1 mr-2">
