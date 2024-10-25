@@ -7,7 +7,7 @@ export interface CourseData {
   periodsNumber: number
 }
 
-export default function ActivityForm() {
+export default function CourseForm() {
   const [formData, setFormData] = useState<Partial<CourseData>>({
     name: '',
     periodsNumber: 0
@@ -30,7 +30,7 @@ export default function ActivityForm() {
 
     try {
       setIsSending(is => !is)
-      await fetch(API_URL + '/subjects', {
+      await fetch(API_URL + '/courses', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
