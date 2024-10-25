@@ -1,4 +1,4 @@
-import type { ActivityData } from "../Activity/ActivityList"
+import type { ActivityData } from "../Activity/ActivityForm"
 
 export default function Activity({
   activity,

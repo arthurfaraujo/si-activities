@@ -4,24 +4,25 @@ import { formatDate } from '../../utils/dateUtils'
 import { subjects } from '@/stores/listStore'
 import { useStore } from '@nanostores/react'
 
-interface FormData {
+export interface ActivityData {
+  id: number
   name: string
-  subject: string
-  description: string
-  startDate: string
-  endDate: string
   subjectId: number
+  subject: string
+  endDate: string
+  startDate: string
+  isActive: boolean
+  description: string
 }
 
 export default function ActivityForm() {
   const $subjects = useStore(subjects)
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<Partial<ActivityData>>({
     name: '',
-    subject: '',
     description: '',
     startDate: '',
     endDate: '',
-    subjectId: -1
+    subjectId: 0
   })
   const [isSending, setIsSending] = useState<boolean>(false)
 
@@ -36,7 +37,7 @@ export default function ActivityForm() {
     fetchSubjects()
   }, [])
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>|ChangeEvent<HTMLSelectElement>) {
     const { name, value } = e.target
 
     e.target.checkValidity()
@@ -59,8 +60,8 @@ export default function ActivityForm() {
         },
         body: JSON.stringify({
           ...formData,
-          endDate: formatDate(formData.endDate),
-          startDate: formatDate(formData.startDate)
+          endDate: formData.endDate && formatDate(formData.endDate),
+          startDate: formData.startDate && formatDate(formData.startDate)
         })
       })
 
@@ -93,18 +94,9 @@ export default function ActivityForm() {
         <select
           className="input-style"
           name="subjectId"
-          onChange={e => {
-            const { name, value } = e.target
-
-            e.target.checkValidity()
-
-            setFormData(data => ({
-              ...data,
-              [name]: value
-            }))
-          }}
+          onChange={handleChange}
         >
-          <option value="-1" className='bg-zinc-900'>Nenhuma</option>
+          <option value="-1" className='bg-zinc-900' disabled selected>Nenhuma</option>
           {$subjects.map(subject => (
             <option key={subject.id} value={subject.id} className='bg-zinc-900'>
               {subject.name}
@@ -150,7 +142,7 @@ export default function ActivityForm() {
         type="submit"
         className={
           'w-full text-lg p-2 border border-solid border-[#3a3a3a] rounded text-white bg-inherit cursor-pointer hover:bg-zinc-800 duration-200' +
-          (isSending ? ' disabled-button' : '')
+          (isSending && ' disabled-button')
         }
         disabled={isSending}
       >
