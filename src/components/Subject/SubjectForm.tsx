@@ -94,7 +94,7 @@ export default function SubjectForm() {
         <span>Curso</span>
         <select
           className="input-style"
-          name="subjectId"
+          name="courseId"
           onChange={handleChange}
         >
           <option value="-1" className='bg-zinc-900' disabled selected>Nenhum</option>  
