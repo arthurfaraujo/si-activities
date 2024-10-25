@@ -1,0 +1,8 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import CourseForm from '../../components/Course/CourseForm'
+---
+
+<Layout title="Criar novo curso" icon='createicon.svg'>
+  <CourseForm client:only="react" />
+</Layout>

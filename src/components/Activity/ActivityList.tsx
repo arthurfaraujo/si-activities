@@ -7,22 +7,7 @@ import { isLoading, subjects } from '@/stores/listStore.ts'
 import { filters } from '@/stores/filtersStore.ts'
 import { useStore } from '@nanostores/react'
 import { filterActivities } from '@/utils/filterUtil.ts'
-
-export interface ActivityData {
-  id: number
-  name: string
-  subjectId: number
-  subject?: string
-  endDate: string
-  startDate: string
-  isActive: boolean
-  description: string
-}
-
-export interface SubjectData {
-  id: number
-  name: string
-}
+import type { ActivityData } from './ActivityForm.tsx'
 
 export default function ActivityList() {
   const [activitiesData, setActivitiesData] = useState<ActivityData[]>([])

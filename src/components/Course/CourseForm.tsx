@@ -1,34 +1,18 @@
-import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { API_URL, FRONT_RELATIVE_URL } from '../../const'
-import { useStore } from '@nanostores/react'
-import { courses } from '@/stores/listStore'
 
-export interface SubjectData {
+export interface CourseData {
   id: number
   name: string
-  period: number
-  courseId: number
+  periodsNumber: number
 }
 
-export default function SubjectForm() {
-  const $courses = useStore(courses)
-  const [formData, setFormData] = useState<Partial<SubjectData>>({
+export default function ActivityForm() {
+  const [formData, setFormData] = useState<Partial<CourseData>>({
     name: '',
-    period: 0,
-    courseId: 0
+    periodsNumber: 0
   })
   const [isSending, setIsSending] = useState<boolean>(false)
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        courses.set(await (await fetch(API_URL + '/courses')).json())
-      } catch (e) {
-        console.error(e)
-      }
-    }
-    fetchCourses()
-  })
 
   function handleChange(e: ChangeEvent<HTMLInputElement>|ChangeEvent<HTMLSelectElement>) {
     const { name, value } = e.target
@@ -79,42 +63,27 @@ export default function SubjectForm() {
         />
       </label>
       <label className="label-style">
-        <span>Período</span>
+        <span>Quantidade de períodos</span>
         <input
-          name="period"
+          name="periodsNumber"
           type="number"
-          value={formData.period}
+          value={formData.periodsNumber}
           onChange={handleChange}
           required
           autoComplete='off'
           className="input-style"
         />
       </label>
-      <label className="label-style">
-        <span>Curso</span>
-        <select
-          className="input-style"
-          name="subjectId"
-          onChange={handleChange}
-        >
-          <option value="-1" className='bg-zinc-900' disabled selected>Nenhum</option>  
-          {$courses.map(course => (
-            <option key={course.id} value={course.id} className='bg-zinc-900'>
-              {course.name}
-            </option>
-          ))}
-        </select>
-      </label>
 
       <button
         type="submit"
         className={
           'w-full text-lg p-2 border border-solid border-[#3a3a3a] rounded text-white bg-inherit cursor-pointer hover:bg-zinc-800 duration-200' +
-          (isSending && ' disabled-button')
+          (isSending ? ' disabled-button' : '')
         }
         disabled={isSending}
       >
-        Criar matéria
+        Criar curso
       </button>
     </form>
   )
