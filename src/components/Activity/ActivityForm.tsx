@@ -1,7 +1,7 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { API_URL, FRONT_RELATIVE_URL } from '../../const'
 import { formatDate } from '../../utils/dateUtils'
-import { subjects } from '@/stores/listStore'
+import { courses, subjects } from '@/stores/listStore'
 import { useStore } from '@nanostores/react'
 
 export interface ActivityData {
@@ -17,6 +17,7 @@ export interface ActivityData {
 
 export default function ActivityForm() {
   const $subjects = useStore(subjects)
+  const $courses = useStore(courses)
   const [formData, setFormData] = useState<Partial<ActivityData>>({
     name: '',
     description: '',
@@ -25,17 +26,29 @@ export default function ActivityForm() {
     subjectId: 0
   })
   const [isSending, setIsSending] = useState<boolean>(false)
+  const [courseId, setCourseId] = useState<number>(0)
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        courses.set(await (await fetch(API_URL + '/courses')).json())
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    fetchCourses()
+  }, [])
 
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        subjects.set(await (await fetch(API_URL + '/subjects')).json())
+        subjects.set(await (await fetch(API_URL + `/subjects/course/${courseId}`)).json())
       } catch (e) {
         console.error(e)
       }
     }
     fetchSubjects()
-  }, [])
+  }, [courseId])
 
   function handleChange(e: ChangeEvent<HTMLInputElement>|ChangeEvent<HTMLSelectElement>) {
     const { name, value } = e.target
@@ -88,6 +101,23 @@ export default function ActivityForm() {
           autoComplete='off'
           className="input-style"
         />
+      </label>
+      <label className="label-style">
+        <span>Curso</span>
+        <select
+          className="input-style"
+          name="subjectId"
+          onChange={e => {
+            setCourseId(Number(e.target.value))
+          }}
+        >
+          <option value="-1" className='bg-zinc-900' disabled selected>Nenhum</option>  
+          {$courses.map(course => (
+            <option key={course.id} value={course.id} className='bg-zinc-900'>
+              {course.name}
+            </option>
+          ))}
+        </select>
       </label>
       <label className="label-style">
         <span>Matéria</span>
