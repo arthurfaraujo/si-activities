@@ -4,7 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { House, BookPlus, FilePlus, Star } from 'lucide-react'
+import { House, BookPlus, FilePlus, Star, ListPlus } from 'lucide-react'
 import { Button } from '../ui/button'
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu'
 
@@ -33,6 +33,12 @@ export default function DropdwonMenu({url}: Readonly<{url: string}>) {
               <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
                 <BookPlus className="mr-2 h-4 w-4" />
                 <span>Criar uma matéria</span>
+              </DropdownMenuItem>
+            </a>
+            <a href={url + '/course/create'}>
+              <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
+                <ListPlus className="mr-2 h-4 w-4" />
+                <span>Criar um curso</span>
               </DropdownMenuItem>
             </a>
             <a href={url + '/rate'}>
