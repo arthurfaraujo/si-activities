@@ -4,7 +4,7 @@
   <b>SI Activities é um projeto destinado a concentrar as atividades que os estudantes do IF possuem em um só lugar,
   possibilitando acesso rápido às suas atividades, bem como oferecendo informações úteis sobre elas.</b>
   <br />
-  Acesse o site <a href="https://arthurfaraujo.github.com/si-activities">SI Activities</a>.
+  Acesse o site <a href="https://si-activities.vercel.app">SI Activities</a>.
 </p>
 
 <h2 id="layout">🖼️ Layout</h2>
