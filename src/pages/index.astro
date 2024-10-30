@@ -1,7 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const url = Astro.url.origin.includes("localhost") ? Astro.url.origin : Astro.url.origin + "/si-activities"
 ---
 
 <Layout title="SI Activities">
@@ -19,7 +17,7 @@ const url = Astro.url.origin.includes("localhost") ? Astro.url.origin : Astro.ur
       Bonito e eficiente.
     </p>
     <div class="w-full flex justify-center">
-      <a href={url + "/home"}>
+      <a href={"/home"}>
         <button class="border rounded p-3 px-6 border-[#5f5f5f] mt-4">Começar</button>
       </a>
     </div>
