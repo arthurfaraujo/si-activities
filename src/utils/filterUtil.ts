@@ -1,4 +1,4 @@
-import type { ActivityData } from "@/components/Activity/ActivityList";
+import type { ActivityData } from "@/components/Activity/ActivityForm";
 import type { Filters } from "@/stores/filtersStore";
 
 export function filterActivities(filters: Filters, activities: ActivityData[]) {

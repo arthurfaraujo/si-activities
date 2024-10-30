@@ -1,4 +1,4 @@
-import type { ActivityData } from "../Activity/ActivityList"
+import type { ActivityData } from '@/components/Activity/ActivityForm'
 
 export default function Modal({ activity, onClose }: Readonly<{ activity: ActivityData, onClose: () => void }>) {
   const { name, subject, endDate, startDate, isActive, description } = activity
