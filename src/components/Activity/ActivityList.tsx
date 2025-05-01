@@ -52,7 +52,7 @@ export default function ActivityList() {
       {$isLoading ? (
         <Loading />
       ) : (
-        <ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 flex-grow">
+        <ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 grow">
             {filterActivities($filters, activitiesData).map(activity => (
             <Activity
               key={activity.id}
