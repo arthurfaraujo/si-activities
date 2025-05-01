@@ -30,10 +30,10 @@
     "si_activities": "file:",
     "tailwind-merge": "^3.2.0",
     "tailwindcss": "^4.1.5",
-    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@types/react": "^19.1.2"
+    "@types/react": "^19.1.2",
+    "tw-animate-css": "^1.2.8"
   }
 }
