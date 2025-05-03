@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import SignInForm from '../../components/Sign/SignInForm'
+
+if (Astro.cookies.has("access-token")) {
+  return Astro.redirect("/home")
+}
+---
+
+<Layout title="Iniciar sessão">
+  <SignInForm client:only="react" />
+</Layout>
