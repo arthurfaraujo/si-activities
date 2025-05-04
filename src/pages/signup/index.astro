@@ -1,9 +1,9 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import SignUpForm from '../../components/Sign/SignUpForm'
+import Layout from '@/layouts/Layout.astro'
+import SignUpForm from '@/components/sign/SignUpForm'
 
-if (Astro.cookies.has("access-token")) {
-  return Astro.redirect("/home")
+if (Astro.cookies.has('access-token')) {
+  return Astro.redirect('/home')
 }
 ---
 

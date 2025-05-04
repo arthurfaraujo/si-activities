@@ -1,5 +1,5 @@
-import type { SubjectData } from '@/components/Subject/SubjectForm'
-import type { CourseData } from '@/components/Course/CourseForm'
+import type { SubjectData } from '@/components/subject/SubjectForm'
+import type { CourseData } from '@/components/course/CourseForm'
 import { atom } from 'nanostores'
 
 export const isLoading = atom<boolean>(true)

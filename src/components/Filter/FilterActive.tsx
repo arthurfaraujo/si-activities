@@ -13,10 +13,10 @@ export default function FilterActive() {
 
   return (
     <Select onValueChange={(value: string) => filters.set({...$filters, isActive: value})}>
-      <SelectTrigger className="w-fit max-w-[45%] dark focus:ring-1 gap-1 default-border">
+      <SelectTrigger className="w-fit max-w-[45%]">
         <SelectValue placeholder="Prazo" />
       </SelectTrigger>
-      <SelectContent className='dark'>
+      <SelectContent className='p-1'>
         <SelectItem value="any">Todas</SelectItem>
         <SelectItem value="true">Abertas</SelectItem>
         <SelectItem value="false">Encerradas</SelectItem>

@@ -1,8 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import ActivityForm from '../../components/Activity/ActivityForm'
+import Layout from '@/layouts/Layout.astro'
+import ActivityForm from '@/components/activity/ActivityForm'
 ---
 
-<Layout title="Criar nova atividade" icon='createicon.svg'>
+<Layout title="Criar nova atividade" icon="createicon.svg">
   <ActivityForm client:only="react" />
 </Layout>

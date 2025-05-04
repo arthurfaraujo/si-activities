@@ -1,10 +1,20 @@
-import { BookPlus, FilePlus, House, ListPlus, User, UserMinusIcon, UserPlus, UserRound } from 'lucide-react'
+import {
+  BookPlus,
+  FilePlus,
+  House,
+  ListPlus,
+  User,
+  UserMinusIcon,
+  UserPlus,
+  UserRound
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
@@ -51,43 +61,48 @@ function ListMenu({
   return (
     <ul className="hidden lg:flex gap-2">
       <li>
-        <a href={'/activity/create'}>
-          <Button className="focus:bg-zinc-700 focus:text-inherit hover:bg-zinc-800 transition-all duration-200 flex gap-2">
-            <FilePlus className="h-4 w-4" />
-            <span>Atividade</span>
-          </Button>
-        </a>
-      </li>
-      <li>
-        <a href={'/subject/create'}>
-          <Button className="focus:bg-zinc-700 focus:text-inherit hover:bg-zinc-800 transition-all duration-200 flex gap-2">
-            <BookPlus className="h-4 w-4" />
-            <span>Matéria</span>
-          </Button>
-        </a>
-      </li>
-      <li>
-        <a href={'/course/create'}>
-          <Button className="focus:bg-zinc-700 focus:text-inherit hover:bg-zinc-800 transition-all duration-200 flex gap-2">
-            <ListPlus className="h-4 w-4" />
-            <span>Curso</span>
-          </Button>
-        </a>
-      </li>
-      <li>
         <a href={'/home'}>
-          <Button className="focus:bg-zinc-700 focus:text-inherit hover:bg-zinc-800 transition-all duration-200 flex gap-2">
-            <House className="h-4 w-4" />
+          <Button variant="ghost" className="transition-all duration-200 flex gap-2">
+            <House className="size-5" />
             <span>Início</span>
           </Button>
         </a>
       </li>
+      {hasToken && (
+        <>
+          <li>
+            <a href={'/activity/create'}>
+              <Button variant="ghost" className="transition-all duration-200 flex gap-2">
+                <FilePlus className="size-5" />
+                <span>Atividade</span>
+              </Button>
+            </a>
+          </li>
+          <li>
+            <a href={'/subject/create'}>
+              <Button variant="ghost"  className="transition-all duration-200 flex gap-2">
+                <BookPlus className="size-5" />
+                <span>Matéria</span>
+              </Button>
+            </a>
+          </li>
+          <li>
+            <a href={'/course/create'}>
+              <Button variant="ghost" className="transition-all duration-200 flex gap-2">
+                <ListPlus className="size-5" />
+                <span>Curso</span>
+              </Button>
+            </a>
+          </li>
+        </>
+      )}
+      
       <li>
         <DropdownMenu>
           <DropdownMenuTrigger>
             <CustomAvatar username={username} />
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="border border-zinc-600 w-fit p-2 bg-zinc-900 text-inherit mt-1 mr-4">
+          <DropdownMenuContent className="mt-1 mr-4">
             {!hasToken ? (
               <>
                 <a href={'/signin'}>
@@ -104,10 +119,13 @@ function ListMenu({
                 </a>
               </>
             ) : (
-                <DropdownMenuItem className="hover:!bg-zinc-700 hover:!text-inherit" onClick={onLogout}>
-                  <UserMinusIcon />
-                  <span>Sair</span>
-                </DropdownMenuItem>
+              <DropdownMenuItem
+                className="hover:!bg-zinc-700 hover:!text-inherit"
+                onClick={onLogout}
+              >
+                <UserMinusIcon />
+                <span>Sair</span>
+              </DropdownMenuItem>
             )}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -131,31 +149,14 @@ function DropMenu({
         <DropdownMenuTrigger>
           <CustomAvatar username={username} />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="border border-zinc-600 w-56 bg-zinc-900 text-inherit mt-1 mr-2">
+        <DropdownMenuContent className="mt-1 mr-2" >
           <a href={'/home'}>
             <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
-              <House className="mr-2 h-4 w-4" />
+              <House className="mr-2 size-5" />
               <span>Início</span>
             </DropdownMenuItem>
           </a>
-          <a href={'/activity/create'}>
-            <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
-              <FilePlus className="mr-2 h-4 w-4" />
-              <span>Criar uma atividade</span>
-            </DropdownMenuItem>
-          </a>
-          <a href={'/subject/create'}>
-            <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
-              <BookPlus className="mr-2 h-4 w-4" />
-              <span>Criar uma matéria</span>
-            </DropdownMenuItem>
-          </a>
-          <a href={'/course/create'}>
-            <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
-              <ListPlus className="mr-2 h-4 w-4" />
-              <span>Criar um curso</span>
-            </DropdownMenuItem>
-          </a>
+          <DropdownMenuSeparator />
           {!hasToken ? (
             <>
               <a href={'/signin'}>
@@ -172,12 +173,34 @@ function DropMenu({
               </a>
             </>
           ) : (
-            
-              <DropdownMenuItem className="hover:!bg-zinc-700 hover:!text-inherit" onClick={onLogout}>
+            <>
+              <a href={'/activity/create'}>
+                <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
+                  <FilePlus className="mr-2 size-5" />
+                  <span>Criar uma atividade</span>
+                </DropdownMenuItem>
+              </a>
+              <a href={'/subject/create'}>
+                <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
+                  <BookPlus className="mr-2 size-5" />
+                  <span>Criar uma matéria</span>
+                </DropdownMenuItem>
+              </a>
+              <a href={'/course/create'}>
+                <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
+                  <ListPlus className="mr-2 size-5" />
+                  <span>Criar um curso</span>
+                </DropdownMenuItem>
+                </a>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                className="hover:!bg-zinc-700 hover:!text-inherit"
+                onClick={onLogout}
+              >
                 <UserMinusIcon />
                 <span>Sair</span>
               </DropdownMenuItem>
-   
+            </>
           )}
         </DropdownMenuContent>
       </DropdownMenu>
