@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import Activity from './Activity.tsx'
-import { API_URL } from '@/const.ts'
 import Modal from '../Modal.tsx'
 import Loading from '../Loading.tsx'
 import { isLoading, subjects } from '@/stores/listStore.ts'
@@ -18,9 +17,9 @@ export default function ActivityList() {
   useEffect(() => {
     async function fetchData() {
       try {        
-        subjects.set(await (await fetch(API_URL + '/subjects')).json())
-        const activities = await (await fetch(API_URL + '/activities')).json()
-
+        const activities = await (await fetch('/api/activities')).json()
+        subjects.set(await (await fetch('/api/subjects')).json())
+        
         setActivitiesData(activities.map((act: ActivityData) => (
           {
             ...act,
