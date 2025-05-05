@@ -18,61 +18,52 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
-export default function Menu({ hasToken }: { hasToken: boolean }) {
-  let username = localStorage.getItem('username')
-
-  if (!hasToken) {
-    username = null
-    localStorage.removeItem('username')
-  }
+export default function Menu(userInfo: { username?: string; isAdmin?: boolean }) {
+  const { username, isAdmin } = userInfo
 
   async function handleLogout() {
     await fetch('/api/signout')
-
-    localStorage.removeItem('username')
     window.location.href = '/home'
   }
 
   return (
     <>
-      <ListMenu
-        hasToken={hasToken}
-        username={username}
-        onLogout={handleLogout}
-      />
-      <DropMenu
-        hasToken={hasToken}
-        username={username}
-        onLogout={handleLogout}
-      />
+      <ListMenu isAdmin={isAdmin} username={username} onLogout={handleLogout} />
+      <DropMenu isAdmin={isAdmin} username={username} onLogout={handleLogout} />
     </>
   )
 }
 
 function ListMenu({
-  hasToken,
+  isAdmin,
   username,
   onLogout
 }: {
-  hasToken: boolean
-  username: string | null
+  isAdmin?: boolean
+  username?: string
   onLogout: () => void
 }) {
   return (
     <ul className="hidden lg:flex gap-2">
       <li>
         <a href={'/home'}>
-          <Button variant="ghost" className="transition-all duration-200 flex gap-2">
+          <Button
+            variant="ghost"
+            className="transition-all duration-200 flex gap-2"
+          >
             <House className="size-5" />
             <span>Início</span>
           </Button>
         </a>
       </li>
-      {hasToken && (
+      {isAdmin && (
         <>
           <li>
             <a href={'/activity/create'}>
-              <Button variant="ghost" className="transition-all duration-200 flex gap-2">
+              <Button
+                variant="ghost"
+                className="transition-all duration-200 flex gap-2"
+              >
                 <FilePlus className="size-5" />
                 <span>Atividade</span>
               </Button>
@@ -80,7 +71,10 @@ function ListMenu({
           </li>
           <li>
             <a href={'/subject/create'}>
-              <Button variant="ghost"  className="transition-all duration-200 flex gap-2">
+              <Button
+                variant="ghost"
+                className="transition-all duration-200 flex gap-2"
+              >
                 <BookPlus className="size-5" />
                 <span>Matéria</span>
               </Button>
@@ -88,7 +82,10 @@ function ListMenu({
           </li>
           <li>
             <a href={'/course/create'}>
-              <Button variant="ghost" className="transition-all duration-200 flex gap-2">
+              <Button
+                variant="ghost"
+                className="transition-all duration-200 flex gap-2"
+              >
                 <ListPlus className="size-5" />
                 <span>Curso</span>
               </Button>
@@ -96,14 +93,14 @@ function ListMenu({
           </li>
         </>
       )}
-      
+
       <li>
         <DropdownMenu>
           <DropdownMenuTrigger>
             <CustomAvatar username={username} />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="mt-1 mr-4">
-            {!hasToken ? (
+            {!username ? (
               <>
                 <a href={'/signin'}>
                   <DropdownMenuItem className="hover:!bg-zinc-700 hover:!text-inherit">
@@ -135,12 +132,12 @@ function ListMenu({
 }
 
 function DropMenu({
-  hasToken,
+  isAdmin,
   username,
   onLogout
 }: {
-  hasToken: boolean
-  username: string | null
+  isAdmin?: boolean
+  username?: string
   onLogout: () => void
 }) {
   return (
@@ -149,7 +146,7 @@ function DropMenu({
         <DropdownMenuTrigger>
           <CustomAvatar username={username} />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="mt-1 mr-2" >
+        <DropdownMenuContent className="mt-1 mr-2">
           <a href={'/home'}>
             <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
               <House className="mr-2 size-5" />
@@ -157,8 +154,31 @@ function DropMenu({
             </DropdownMenuItem>
           </a>
           <DropdownMenuSeparator />
-          {!hasToken ? (
+          {!username ? (
             <>
+              {isAdmin && (
+                <>
+                  <a href={'/activity/create'}>
+                    <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
+                      <FilePlus className="mr-2 size-5" />
+                      <span>Criar uma atividade</span>
+                    </DropdownMenuItem>
+                  </a>
+                  <a href={'/subject/create'}>
+                    <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
+                      <BookPlus className="mr-2 size-5" />
+                      <span>Criar uma matéria</span>
+                    </DropdownMenuItem>
+                  </a>
+                  <a href={'/course/create'}>
+                    <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
+                      <ListPlus className="mr-2 size-5" />
+                      <span>Criar um curso</span>
+                    </DropdownMenuItem>
+                  </a>
+                  <DropdownMenuSeparator />
+                </>
+              )}
               <a href={'/signin'}>
                 <DropdownMenuItem className="hover:!bg-zinc-700 hover:!text-inherit">
                   <User />
@@ -173,34 +193,13 @@ function DropMenu({
               </a>
             </>
           ) : (
-            <>
-              <a href={'/activity/create'}>
-                <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
-                  <FilePlus className="mr-2 size-5" />
-                  <span>Criar uma atividade</span>
-                </DropdownMenuItem>
-              </a>
-              <a href={'/subject/create'}>
-                <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
-                  <BookPlus className="mr-2 size-5" />
-                  <span>Criar uma matéria</span>
-                </DropdownMenuItem>
-              </a>
-              <a href={'/course/create'}>
-                <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
-                  <ListPlus className="mr-2 size-5" />
-                  <span>Criar um curso</span>
-                </DropdownMenuItem>
-                </a>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                className="hover:!bg-zinc-700 hover:!text-inherit"
-                onClick={onLogout}
-              >
-                <UserMinusIcon />
-                <span>Sair</span>
-              </DropdownMenuItem>
-            </>
+            <DropdownMenuItem
+              className="hover:!bg-zinc-700 hover:!text-inherit"
+              onClick={onLogout}
+            >
+              <UserMinusIcon />
+              <span>Sair</span>
+            </DropdownMenuItem>
           )}
         </DropdownMenuContent>
       </DropdownMenu>
@@ -208,7 +207,7 @@ function DropMenu({
   )
 }
 
-function CustomAvatar({ username }: { username: string | null }) {
+function CustomAvatar({ username }: { username?: string }) {
   return (
     <Avatar className="">
       <AvatarFallback className="!bg-inherit">

@@ -8,7 +8,8 @@ interface Props {
 }
 
 const { title, icon } = Astro.props
-const hasToken = Astro.cookies.has('access-token')
+const name = Astro.locals.username
+const isAdmin = Astro.locals.isAdmin
 ---
 
 <!doctype html>
@@ -27,7 +28,7 @@ const hasToken = Astro.cookies.has('access-token')
       <a href={'/home'}>
         <h3 class="text-lg">Atividades SI</h3>
       </a>
-      <Menu client:only="react" hasToken={hasToken} />
+      <Menu client:only="react" username={name} isAdmin={isAdmin} />
     </header>
 
     <main class="w-full mt-4 grow flex justify-center items-center flex-col">
