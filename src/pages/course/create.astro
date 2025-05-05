@@ -1,6 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import CourseForm from '@/components/course/CourseForm'
+
+if (!Astro.locals.isAdmin) {
+  return Astro.redirect('/home')
+}
 ---
 
 <Layout title="Criar novo curso" icon="createicon.svg">

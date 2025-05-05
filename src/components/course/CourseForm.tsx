@@ -1,5 +1,4 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { API_URL, FRONT_RELATIVE_URL } from '../../const'
 
 export interface CourseData {
   id: number
@@ -30,7 +29,7 @@ export default function CourseForm() {
 
     try {
       setIsSending(is => !is)
-      await fetch(API_URL + '/courses', {
+      await fetch('/api/courses', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -39,7 +38,7 @@ export default function CourseForm() {
       })
 
       setIsSending(is => !is)
-      window.location.href = FRONT_RELATIVE_URL + '/home'
+      window.location.href = '/home'
     } catch (e) {
       console.error('Error: ', e)
     }
