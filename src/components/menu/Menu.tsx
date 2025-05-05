@@ -18,7 +18,10 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
-export default function Menu(userInfo: { username?: string; isAdmin?: boolean }) {
+export default function Menu(userInfo: {
+  username?: string
+  isAdmin?: boolean
+}) {
   const { username, isAdmin } = userInfo
 
   async function handleLogout() {
@@ -56,7 +59,7 @@ function ListMenu({
           </Button>
         </a>
       </li>
-      {isAdmin && (
+      {isAdmin === true && (
         <>
           <li>
             <a href={'/activity/create'}>
@@ -156,29 +159,6 @@ function DropMenu({
           <DropdownMenuSeparator />
           {!username ? (
             <>
-              {isAdmin && (
-                <>
-                  <a href={'/activity/create'}>
-                    <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
-                      <FilePlus className="mr-2 size-5" />
-                      <span>Criar uma atividade</span>
-                    </DropdownMenuItem>
-                  </a>
-                  <a href={'/subject/create'}>
-                    <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
-                      <BookPlus className="mr-2 size-5" />
-                      <span>Criar uma matéria</span>
-                    </DropdownMenuItem>
-                  </a>
-                  <a href={'/course/create'}>
-                    <DropdownMenuItem className="focus:bg-zinc-700 focus:text-inherit">
-                      <ListPlus className="mr-2 size-5" />
-                      <span>Criar um curso</span>
-                    </DropdownMenuItem>
-                  </a>
-                  <DropdownMenuSeparator />
-                </>
-              )}
               <a href={'/signin'}>
                 <DropdownMenuItem className="hover:!bg-zinc-700 hover:!text-inherit">
                   <User />
@@ -193,13 +173,38 @@ function DropMenu({
               </a>
             </>
           ) : (
-            <DropdownMenuItem
-              className="hover:!bg-zinc-700 hover:!text-inherit"
-              onClick={onLogout}
-            >
-              <UserMinusIcon />
-              <span>Sair</span>
-            </DropdownMenuItem>
+            <>
+              {isAdmin && (
+                <>
+                  <a href={'/activity/create'}>
+                    <DropdownMenuItem className="">
+                      <FilePlus className="mr-2 size-5" />
+                      <span>Criar uma atividade</span>
+                    </DropdownMenuItem>
+                  </a>
+                  <a href={'/subject/create'}>
+                    <DropdownMenuItem className="">
+                      <BookPlus className="mr-2 size-5" />
+                      <span>Criar uma matéria</span>
+                    </DropdownMenuItem>
+                  </a>
+                  <a href={'/course/create'}>
+                    <DropdownMenuItem className="">
+                      <ListPlus className="mr-2 size-5" />
+                      <span>Criar um curso</span>
+                    </DropdownMenuItem>
+                  </a>
+                  <DropdownMenuSeparator />
+                </>
+              )}
+              <DropdownMenuItem
+                className=""
+                onClick={onLogout}
+              >
+                <UserMinusIcon />
+                <span>Sair</span>
+              </DropdownMenuItem>
+            </>
           )}
         </DropdownMenuContent>
       </DropdownMenu>
