@@ -1,8 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import SubjectForm from '../../components/Subject/SubjectForm'
+import Layout from '@/layouts/Layout.astro'
+import SubjectForm from '@/components/subject/SubjectForm'
+
+if (!Astro.locals.isAdmin) {
+  return Astro.redirect('/home')
+}
 ---
 
-<Layout title="Criar nova matéria" icon='createicon.svg'>
+<Layout title="Criar nova matéria" icon="createicon.svg">
   <SubjectForm client:only="react" />
 </Layout>

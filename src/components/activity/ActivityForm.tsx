@@ -1,8 +1,14 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
-import { API_URL, FRONT_RELATIVE_URL } from '../../const'
 import { formatDate } from '../../utils/dateUtils'
 import { courses, subjects } from '@/stores/listStore'
 import { useStore } from '@nanostores/react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger
+} from '@/components/ui/select'
+import { SelectValue } from '@radix-ui/react-select'
 
 export interface ActivityData {
   id: number
@@ -31,7 +37,7 @@ export default function ActivityForm() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        courses.set(await (await fetch(API_URL + '/courses')).json())
+        courses.set(await (await fetch('/api/courses')).json())
       } catch (e) {
         console.error(e)
       }
@@ -42,7 +48,10 @@ export default function ActivityForm() {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        subjects.set(await (await fetch(API_URL + `/subjects/course/${courseId}`)).json())
+        // pegar as matérias pelo curso de id tal
+        subjects.set(
+          await (await fetch(`/api/subjects/course/${courseId}`)).json()
+        )
       } catch (e) {
         console.error(e)
       }
@@ -50,15 +59,29 @@ export default function ActivityForm() {
     fetchSubjects()
   }, [courseId])
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>|ChangeEvent<HTMLSelectElement>) {
-    const { name, value } = e.target
+  function handleChange({
+    e,
+    selectData
+  }: {
+    e?: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+    selectData?: { name: string; value: number }
+  }) {
+    if (e) {
+      const { name, value } = e.target
 
-    e.target.checkValidity()
+      e.target.checkValidity()
 
-    setFormData(data => ({
-      ...data,
-      [name]: value
-    }))
+      setFormData(data => ({
+        ...data,
+        [name]: value
+      }))
+    }
+
+    if (selectData) {
+      setFormData(data => ({ ...data, [selectData.name]: selectData.value }))
+      console.log(selectData)
+      console.log(formData)
+    }
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -66,7 +89,7 @@ export default function ActivityForm() {
 
     try {
       setIsSending(is => !is)
-      await fetch(API_URL + '/activities', {
+      await fetch('/api/activities', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -79,7 +102,7 @@ export default function ActivityForm() {
       })
 
       setIsSending(is => !is)
-      window.location.href = FRONT_RELATIVE_URL + "/home"
+      window.location.href = '/home'
     } catch (e) {
       console.error('Error: ', e)
     }
@@ -96,43 +119,48 @@ export default function ActivityForm() {
           name="name"
           type="text"
           value={formData.name}
-          onChange={handleChange}
+          onChange={e => handleChange({ e })}
           required
-          autoComplete='off'
+          autoComplete="off"
           className="input-style"
         />
       </label>
       <label className="label-style">
         <span>Curso</span>
-        <select
-          className="input-style"
-          name="subjectId"
-          onChange={e => {
-            setCourseId(Number(e.target.value))
-          }}
+        <Select
+          onValueChange={value => setCourseId(Number(value))}
         >
-          <option value="-1" className='bg-zinc-900' disabled selected>Nenhum</option>  
-          {$courses.map(course => (
-            <option key={course.id} value={course.id} className='bg-zinc-900'>
-              {course.name}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger className='input-style'>
+            <SelectValue placeholder="Nenhum" />
+          </SelectTrigger>
+          <SelectContent>
+            {$courses.map(course => (
+              <SelectItem key={course.id} value={course.id.toString()}>
+                {course.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </label>
       <label className="label-style">
         <span>Matéria</span>
-        <select
-          className="input-style"
-          name="subjectId"
-          onChange={handleChange}
+        <Select
+          onValueChange={value => {
+            const data = { name: 'subjectId', value: Number(value) }
+            handleChange({ selectData: data })
+          }}
         >
-          <option value="-1" className='bg-zinc-900' disabled selected>Nenhuma</option>
-          {$subjects.map(subject => (
-            <option key={subject.id} value={subject.id} className='bg-zinc-900'>
-              {subject.name}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger className='input-style' value={formData.subjectId}>
+            <SelectValue placeholder="Nenhuma"/>
+          </SelectTrigger>
+          <SelectContent>
+            {$subjects.map(subject => (
+              <SelectItem key={subject.id} value={subject.id.toString()}>
+                {subject.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </label>
       <label className="label-style">
         <span>Descrição</span>
@@ -140,8 +168,8 @@ export default function ActivityForm() {
           name="description"
           type="text"
           value={formData.description}
-          onChange={handleChange}
-          autoComplete='off'
+          onChange={e => handleChange({ e })}
+          autoComplete="off"
           className="input-style"
         />
       </label>
@@ -151,8 +179,8 @@ export default function ActivityForm() {
           name="startDate"
           type="date"
           value={formData.startDate}
-          onChange={handleChange}
-          autoComplete='off'
+          onChange={e => handleChange({ e })}
+          autoComplete="off"
           className="input-style"
         />
       </label>
@@ -162,8 +190,8 @@ export default function ActivityForm() {
           name="endDate"
           type="date"
           value={formData.endDate}
-          onChange={handleChange}
-          autoComplete='off'
+          onChange={e => handleChange({ e })}
+          autoComplete="off"
           className="input-style"
         />
       </label>

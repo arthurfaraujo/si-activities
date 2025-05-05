@@ -15,10 +15,10 @@ export default function FilterSubject() {
 
   return (
     <Select onValueChange={(value: string) => filters.set({...$filters, subject: value})}>
-      <SelectTrigger className="w-fit max-w-[45%] dark focus:ring-1 gap-1 default-border">
+      <SelectTrigger className="w-fit max-w-[45%]">
         <SelectValue placeholder="Matérias" />
       </SelectTrigger>
-      <SelectContent className='dark'>
+      <SelectContent className='p-1'>
         <SelectItem value='any'>Todas</SelectItem>
         {$subjects.map((subj) => (<SelectItem key={subj.id} value={subj.name}>{subj.name}</SelectItem>))}
       </SelectContent>

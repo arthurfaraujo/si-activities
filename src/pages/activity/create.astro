@@ -1,8 +1,12 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import ActivityForm from '../../components/Activity/ActivityForm'
+import Layout from '@/layouts/Layout.astro'
+import ActivityForm from '@/components/activity/ActivityForm'
+
+if (!Astro.locals.isAdmin) {
+  return Astro.redirect('/home')
+}
 ---
 
-<Layout title="Criar nova atividade" icon='createicon.svg'>
+<Layout title="Criar nova atividade" icon="createicon.svg">
   <ActivityForm client:only="react" />
 </Layout>

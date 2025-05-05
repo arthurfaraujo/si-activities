@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import Activity from './Activity.tsx'
-import { API_URL } from '@/const.ts'
-import Modal from '../Others/Modal.tsx'
-import Loading from '../Others/Loading.tsx'
+import Modal from '../Modal.tsx'
+import Loading from '../Loading.tsx'
 import { isLoading, subjects } from '@/stores/listStore.ts'
 import { filters } from '@/stores/filtersStore.ts'
 import { useStore } from '@nanostores/react'
@@ -18,9 +17,9 @@ export default function ActivityList() {
   useEffect(() => {
     async function fetchData() {
       try {        
-        subjects.set(await (await fetch(API_URL + '/subjects')).json())
-        const activities = await (await fetch(API_URL + '/activities')).json()
-
+        const activities = await (await fetch('/api/activities')).json()
+        subjects.set(await (await fetch('/api/subjects')).json())
+        
         setActivitiesData(activities.map((act: ActivityData) => (
           {
             ...act,
@@ -52,7 +51,7 @@ export default function ActivityList() {
       {$isLoading ? (
         <Loading />
       ) : (
-        <ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 flex-grow">
+        <ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 grow">
             {filterActivities($filters, activitiesData).map(activity => (
             <Activity
               key={activity.id}

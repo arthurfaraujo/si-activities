@@ -1,13 +1,15 @@
 ---
 import '@/styles/global.css'
-import DropdownMenu from '@/components/Menu/DropdwonMenu'
-import ListMenu from '@/components/Menu/ListMenu'
+import Menu from '@/components/menu/Menu'
+
 interface Props {
   title: string
   icon?: string
 }
 
 const { title, icon } = Astro.props
+const name = Astro.locals.username
+const isAdmin = Astro.locals.isAdmin
 ---
 
 <!doctype html>
@@ -21,16 +23,15 @@ const { title, icon } = Astro.props
     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     <title>{title}</title>
   </head>
-  <body class="w-full flex items-center flex-col min-h-screen overflow-x-hidden bg-zinc-900 text-inherit">
+  <body class="dark w-full flex items-center flex-col min-h-screen overflow-x-hidden bg-zinc-900 text-inherit">
     <header class="w-full flex justify-between items-center p-6 h-14">
       <a href={'/home'}>
         <h3 class="text-lg">Atividades SI</h3>
       </a>
-      <DropdownMenu client:only="react" />
-      <ListMenu client:only="react" />
+      <Menu client:only="react" username={name} isAdmin={isAdmin} />
     </header>
 
-    <main class="w-full mt-4 flex-grow flex justify-center items-center flex-col">
+    <main class="w-full mt-4 grow flex justify-center items-center flex-col">
       <slot />
     </main>
 

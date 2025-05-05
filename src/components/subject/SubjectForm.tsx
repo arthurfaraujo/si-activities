@@ -1,7 +1,7 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
-import { API_URL, FRONT_RELATIVE_URL } from '../../const'
 import { useStore } from '@nanostores/react'
 import { courses } from '@/stores/listStore'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 
 export interface SubjectData {
   id: number
@@ -22,23 +22,35 @@ export default function SubjectForm() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        courses.set(await (await fetch(API_URL + '/courses')).json())
+        courses.set(await (await fetch('/api/courses')).json())
       } catch (e) {
         console.error(e)
       }
     }
     fetchCourses()
-  })
+  }, [])
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>|ChangeEvent<HTMLSelectElement>) {
-    const { name, value } = e.target
+  function handleChange({
+    e,
+    select
+  }: {
+    e?: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
+    select?: number
+  }) {
+    if (e) {
+      const { name, value } = e.target
 
-    e.target.checkValidity()
+      e.target.checkValidity()
 
-    setFormData(data => ({
-      ...data,
-      [name]: value
-    }))
+      setFormData(data => ({
+        ...data,
+        [name]: value
+      }))
+    }
+
+    if (select) {
+      setFormData(data => ({ ...data, courseId: select }))
+    }
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -46,7 +58,7 @@ export default function SubjectForm() {
 
     try {
       setIsSending(is => !is)
-      await fetch(API_URL + '/subjects', {
+      await fetch('/api/subjects', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -55,7 +67,7 @@ export default function SubjectForm() {
       })
 
       setIsSending(is => !is)
-      window.location.href = FRONT_RELATIVE_URL + '/home'
+      window.location.href = '/home'
     } catch (e) {
       console.error('Error: ', e)
     }
@@ -72,7 +84,7 @@ export default function SubjectForm() {
           name="name"
           type="text"
           value={formData.name}
-          onChange={handleChange}
+          onChange={e => handleChange({ e })}
           required
           autoComplete='off'
           className="input-style"
@@ -84,7 +96,7 @@ export default function SubjectForm() {
           name="period"
           type="number"
           value={formData.period}
-          onChange={handleChange}
+          onChange={e => handleChange({ e })}
           required
           autoComplete='off'
           className="input-style"
@@ -92,18 +104,23 @@ export default function SubjectForm() {
       </label>
       <label className="label-style">
         <span>Curso</span>
-        <select
-          className="input-style"
-          name="courseId"
-          onChange={handleChange}
+        <Select
+          onValueChange={value => {
+            const data = Number(value)
+            handleChange({ select: data })
+          }}
         >
-          <option value="-1" className='bg-zinc-900' disabled selected>Nenhum</option>  
-          {$courses.map(course => (
-            <option key={course.id} value={course.id} className='bg-zinc-900'>
-              {course.name}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger className='input-style'>
+            <SelectValue placeholder="Nenhum" />
+          </SelectTrigger>
+          <SelectContent>
+            {$courses.map(course => (
+              <SelectItem key={course.id} value={course.id.toString()}>
+                {course.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </label>
 
       <button

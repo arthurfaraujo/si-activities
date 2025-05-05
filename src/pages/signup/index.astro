@@ -1,0 +1,12 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import SignUpForm from '@/components/sign/SignUpForm'
+
+if (await Astro.session?.get('accessToken')) {
+  return Astro.redirect('/home')
+}
+---
+
+<Layout title="Criar conta de usuário">
+  <SignUpForm client:only="react" />
+</Layout>
