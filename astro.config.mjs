@@ -13,5 +13,12 @@ export default defineConfig({
   ],
 
   output: 'server',
-  adapter: vercel()
+  adapter: vercel(),
+  session: {
+    driver: 'redis',
+    options: {
+      url: process.env.REDIS_URL
+    },
+    ttl: 7200
+  }
 })
