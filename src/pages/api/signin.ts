@@ -1,9 +1,10 @@
 export const prerender = false
 import type { APIRoute } from 'astro'
-import { API_URL } from '@/const'
 
-export const POST: APIRoute = async ({ request }) => {
-  const data = await request.formData()
+const API_URL = process.env.API_URL
+
+export const POST: APIRoute = async (context) => {
+  const data = await context.request.formData()
   const nickname = data.get('nickname')
   const password = data.get('password')
 
@@ -33,10 +34,12 @@ export const POST: APIRoute = async ({ request }) => {
   })
 
   if (res.token) {
+    context.session?.set('accessToken', res.token)
+    context.session?.set('user', res.user)
+    context.session?.set('createdAt', new Date())
+    context.session?.set('maxAge', 7200)
+
     return new Response(JSON.stringify(res), {
-      headers: {
-        'Set-Cookie': `access-token=${res.token}; Max-Age=7200; HttpOnly; SameSite=Strict; Path=/;`
-      },
       status: 200
     })
   }

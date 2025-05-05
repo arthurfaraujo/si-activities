@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 import SignInForm from '@/components/sign/SignInForm'
 
-if (Astro.cookies.has('access-token')) {
+if (await Astro.session?.get('accessToken')) {
   return Astro.redirect('/home')
 }
 ---

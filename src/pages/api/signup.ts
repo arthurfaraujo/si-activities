@@ -1,6 +1,7 @@
 export const prerender = false
 import type { APIRoute } from 'astro'
-import { API_URL } from '@/const'
+
+const API_URL = process.env.API_URL
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData()
@@ -30,7 +31,6 @@ export const POST: APIRoute = async ({ request }) => {
       name: name
     })
   }).then(res => {
-    console.log(res)
     if (res.status === 201) {
       return res.json()
     }

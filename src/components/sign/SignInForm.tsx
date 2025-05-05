@@ -30,7 +30,6 @@ export default function SignInForm() {
 
       setIsSending(is => !is)
       if (response.token) {
-        localStorage.setItem('username', response.user.name)
         window.location.href = '/home'
       } else {
         setIsWrong(true)

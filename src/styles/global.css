@@ -29,7 +29,7 @@ html {
 }
 
 .input-style {
-  @apply p-2 border border-solid rounded border-[#3a3a3a] font-semibold w-full bg-inherit focus-visible:outline-none focus-visible:border-zinc-300;
+  @apply p-2 border border-solid rounded border-[#3a3a3a] font-semibold w-full bg-inherit focus-visible:outline-none focus-visible:border-zinc-300 h-10;
 }
 
 .disabled-button {
