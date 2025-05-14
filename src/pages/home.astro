@@ -1,10 +1,10 @@
 ---
 import ActivityList from '@/components/activity/ActivityList'
 import Layout from '@/layouts/Layout.astro'
-import FilterBar from '@/components/filter/FilterBar'
+import FilterMenu from '@/components/filter/FilterMenu'
 ---
 
 <Layout title="SI Activities">
-  <FilterBar client:only="react" />
+  <FilterMenu client:only="react" />
   <ActivityList client:only="react" />
 </Layout>

@@ -7,7 +7,8 @@ export interface SubjectData {
   id: number
   name: string
   period: number
-  courseId: number
+  courseId?: number
+  courseName?: string
 }
 
 export default function SubjectForm() {
