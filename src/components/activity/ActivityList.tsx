@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Activity from './Activity.tsx'
 import Modal from '../Modal.tsx'
 import Loading from '../Loading.tsx'
-import { isLoading, subjects } from '@/stores/listStore.ts'
+import { courses, isLoading, subjects } from '@/stores/listStore.ts'
 import { filters } from '@/stores/filtersStore.ts'
 import { useStore } from '@nanostores/react'
 import { filterActivities } from '@/utils/filterUtil.ts'
@@ -10,34 +10,38 @@ import type { ActivityData } from './ActivityForm.tsx'
 
 export default function ActivityList() {
   const [activitiesData, setActivitiesData] = useState<ActivityData[]>([])
-  const [selectedActivity, setSelectedActivity] = useState<ActivityData | null>(null)
+  const [selectedActivity, setSelectedActivity] = useState<ActivityData | null>(
+    null
+  )
   const $isLoading = useStore(isLoading)
   const $filters = useStore(filters)
+  const $subjects = useStore(subjects)
+  const $courses = useStore(courses)
 
   useEffect(() => {
     async function fetchData() {
-      try {        
+      try {
         const activities = await (await fetch('/api/activities')).json()
         subjects.set(await (await fetch('/api/subjects')).json())
-        
-        setActivitiesData(activities.map((act: ActivityData) => (
-          {
+        courses.set(await (await fetch('/api/courses')).json())
+
+        setActivitiesData(
+          activities.map((act: ActivityData) => ({
             ...act,
-            subject: subjects.get().find(
-              subject => subject.id == act.subjectId
-            )?.name
-          }
-        )))
+            subject: $subjects.find(subject => subject.id == act.subjectId)
+              ?.name
+          }))
+        )
 
         isLoading.set(false)
       } catch (e) {
         console.error('Error: ', e)
       }
     }
-    
+
     fetchData()
   }, [])
-  
+
   function handleClick(activity: ActivityData) {
     setSelectedActivity(activity)
   }
@@ -52,13 +56,15 @@ export default function ActivityList() {
         <Loading />
       ) : (
         <ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 grow">
-            {filterActivities($filters, activitiesData).map(activity => (
-            <Activity
-              key={activity.id}
-              activity={activity}
-              onClick={handleClick}
-            />
-          ))}
+          {filterActivities($filters, activitiesData, $subjects, $courses).map(
+            activity => (
+              <Activity
+                key={activity.id}
+                activity={activity}
+                onClick={handleClick}
+              />
+            )
+          )}
         </ul>
       )}
       {selectedActivity && (
