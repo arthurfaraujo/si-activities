@@ -11,7 +11,7 @@ export default function Activity({
   return (
     <li
       onClick={() => onClick(activity)}
-      className="w-full flex flex-col justify-center p-6 default-border cursor-pointer transition duration-500 hover:bg-[#1f1f23]"
+      className="max-w-80 aspect-video w-full flex flex-col justify-center p-6 default-border cursor-pointer transition duration-500 hover:bg-[#1f1f23]"
     >
       <div className="w-full flex flex-col flex-wrap">
         <span>
