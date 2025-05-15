@@ -28,7 +28,7 @@ export default function ActivityList() {
         setActivitiesData(
           activities.map((act: ActivityData) => ({
             ...act,
-            subject: $subjects.find(subject => subject.id == act.subjectId)
+            subject: subjects.get().find(subject => subject.id == act.subjectId)
               ?.name
           }))
         )
@@ -55,7 +55,7 @@ export default function ActivityList() {
       {$isLoading ? (
         <Loading />
       ) : (
-        <ul className="activity-list w-full grid grid-cols-[repeat(auto-fill,250px)] justify-center content-start list-none gap-4 p-4 grow">
+        <ul className="max-sm:flex max-sm:wrap max-sm:flex-col w-full sm:grid sm:grid-cols-[repeat(auto-fill,250px)] max-sm:justify-start max-sm:items-center justify-center content-start list-none gap-4 p-4 grow">
           {filterActivities($filters, activitiesData, $subjects, $courses).map(
             activity => (
               <Activity
